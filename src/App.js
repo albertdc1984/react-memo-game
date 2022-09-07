@@ -14,7 +14,7 @@ function App() {
       <GameScreen />
       <FinishScreen />
       <Card />
-      <Button />
+      <Button text={"hola"} />
     </div>
   );
 }

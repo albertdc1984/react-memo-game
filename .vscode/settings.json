@@ -1,0 +1,5 @@
+{
+  "gitlens.views.commits.files.layout": "tree",
+  "gitlens.views.fileHistory.files.layout": "tree",
+  "gitlens.views.remotes.files.layout": "tree"
+}
