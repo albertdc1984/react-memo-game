@@ -1,12 +1,15 @@
 import styled from "styled-components";
 
 const ButtonS = styled.button`
-  width: 50px;
+  font-size: 20px;
+  width: 150px;
   height: 30px;
   background-color: blacK;
   color: white;
+  border-radius: 5px;
+  margin: 5px;
 `;
 
 export default function Button(props) {
-  return <ButtonS>{props.text}</ButtonS>;
+  return <ButtonS onClick={props.action}>{props.text}</ButtonS>;
 }

@@ -1,3 +1,9 @@
+import Button from "./Button";
+
 export default function FinishScreen(props) {
-  return <div>FinishScreen</div>;
+  return (
+    <div>
+      <Button text="Back" action={() => console.log("to the future")} />
+    </div>
+  );
 }
