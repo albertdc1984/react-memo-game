@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import anarchy from "../android-icon-192x192.png";
+import spidey from "../img/01.png";
+import marvel from "../img/12.png";
 
 const CardBorder = styled.div`
   border-style: solid;
@@ -12,8 +13,11 @@ const CardBorder = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const CardFront = styled.img`
+  height: 80%;
+`;
 const CardBack = styled.img`
-  transform: rotate(45deg);
+  width: 90%;
 `;
 
 export default function Card(props) {
@@ -21,10 +25,10 @@ export default function Card(props) {
     <div>
       <div>
         <CardBorder>
-          <img src={anarchy} alt="Card front" />
+          <CardFront src={spidey} alt="Card front" />
         </CardBorder>
         <CardBorder>
-          <CardBack src={anarchy} alt="Card back" />
+          <CardBack src={marvel} alt="Card back" />
         </CardBorder>
       </div>
     </div>
