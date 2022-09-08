@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./App.css";
-import FinishScreen from "./components/FinishScreen";
 import GameScreen from "./components/GameScreen";
 import MainScreen from "./components/MainScreen";
 
@@ -25,8 +24,6 @@ function App() {
       ) : (
         <GameScreen setGame={changeGameStatus} />
       )}
-
-      <FinishScreen />
     </div>
   );
 }
