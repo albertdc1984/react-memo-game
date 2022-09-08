@@ -1,9 +1,24 @@
 import Button from "./Button";
 import sound from "../ding-3.wav";
 import Card from "./Card";
+import randomCardsArr from "../logic/crreateRandomCardsArray";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
+
+const CardsContainer = styled.div`
+  width: 80vw;
+  display: flex;
+  flex-wrap: wrap;
+`;
 
 export default function GameScreen(props) {
+  const [cardsArr, setCardsArr] = useState([]);
   const audio = new Audio(sound);
+
+  useEffect(() => {
+    setCardsArr(randomCardsArr(props.numbOfCards));
+  }, [props.numbOfCards]);
+
   return (
     <div>
       <h1>Have fun!</h1>
@@ -15,10 +30,21 @@ export default function GameScreen(props) {
           <p>time</p>
         </div>
       </div>
-      <div>
-        <p>cards</p>
-        <Card></Card>
-      </div>
+      <CardsContainer>
+        {cardsArr
+          .sort((a, b) => a.id - b.id)
+          .map((card) => {
+            return (
+              <Card
+                key={card.id}
+                id={card.id}
+                rotate={card.rotate}
+                image={card.card}
+                bond={card.bind}
+              />
+            );
+          })}
+      </CardsContainer>
       <Button
         text="Exit"
         action={() => {

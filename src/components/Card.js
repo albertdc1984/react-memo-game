@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import spidey from "../img/01.png";
 import marvel from "../img/12.png";
 
 const CardBorder = styled.div`
@@ -25,7 +24,7 @@ export default function Card(props) {
     <div>
       <div>
         <CardBorder>
-          <CardFront src={spidey} alt="Card front" />
+          <CardFront src={props.image} alt="Card front" />
         </CardBorder>
         <CardBorder>
           <CardBack src={marvel} alt="Card back" />

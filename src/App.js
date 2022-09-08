@@ -13,6 +13,13 @@ function App() {
   const changeGameStatus = (value) => {
     setGameStatus(value);
   };
+
+  const cardsByLevel = {
+    0: 8,
+    1: 16,
+    2: 24,
+  };
+
   return (
     <div className="App">
       {gameStatus === 0 ? (
@@ -22,7 +29,10 @@ function App() {
           setGame={changeGameStatus}
         />
       ) : (
-        <GameScreen setGame={changeGameStatus} />
+        <GameScreen
+          setGame={changeGameStatus}
+          numbOfCards={cardsByLevel[difficulty]}
+        />
       )}
     </div>
   );
