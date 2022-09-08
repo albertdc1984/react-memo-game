@@ -23,7 +23,7 @@ function App() {
           setGame={changeGameStatus}
         />
       ) : (
-        <GameScreen />
+        <GameScreen setGame={changeGameStatus} />
       )}
 
       <FinishScreen />
