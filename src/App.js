@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./App.css";
-import FinishScreen from "./components/FinishScreen";
 import GameScreen from "./components/GameScreen";
 import MainScreen from "./components/MainScreen";
 
@@ -14,6 +13,13 @@ function App() {
   const changeGameStatus = (value) => {
     setGameStatus(value);
   };
+
+  const cardsByLevel = {
+    0: 8,
+    1: 16,
+    2: 24,
+  };
+
   return (
     <div className="App">
       {gameStatus === 0 ? (
@@ -23,10 +29,11 @@ function App() {
           setGame={changeGameStatus}
         />
       ) : (
-        <GameScreen />
+        <GameScreen
+          setGame={changeGameStatus}
+          numbOfCards={cardsByLevel[difficulty]}
+        />
       )}
-
-      <FinishScreen />
     </div>
   );
 }
