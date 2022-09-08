@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Button from "./Button";
+import sound from "../ding-3.wav";
 
 const TitleBox = styled.div`
   display: flex;
@@ -15,6 +16,7 @@ const ButtonBox = styled.div`
 `;
 
 export default function MainScreen(props) {
+  var audio = new Audio(sound);
   const difficultyLevels = ["Easy", "Medium", "Hard"];
   return (
     <div>
@@ -25,10 +27,19 @@ export default function MainScreen(props) {
       <ButtonBox>
         <Button
           text={difficultyLevels[props.difficulty]}
-          action={props.changeDifficulty}
+          action={() => {
+            audio.play();
+            props.changeDifficulty();
+          }}
         />
         <br />
-        <Button text="Start" action={() => console.log("Starting...")} />
+        <Button
+          text="Start"
+          action={() => {
+            audio.play();
+            props.setGame();
+          }}
+        />
       </ButtonBox>
     </div>
   );
