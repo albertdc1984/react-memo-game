@@ -1,0 +1,9 @@
+.rotate {
+  transform: rotateY(180deg);
+}
+.active {
+  z-index: 1 !important;
+}
+.inactive {
+  z-index: -1 !important;
+}

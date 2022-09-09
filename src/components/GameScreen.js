@@ -6,9 +6,10 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const CardsContainer = styled.div`
-  width: 80vw;
+  width: 1000px;
   display: flex;
   flex-wrap: wrap;
+  cursor: pointer;
 `;
 
 export default function GameScreen(props) {
@@ -18,6 +19,14 @@ export default function GameScreen(props) {
   useEffect(() => {
     setCardsArr(randomCardsArr(props.numbOfCards));
   }, [props.numbOfCards]);
+
+  const rotate = (id, fixed) => {
+    setCardsArr((prevArr) => {
+      prevArr[id].rotate = true;
+      prevArr[id].valid = 1;
+      return [...prevArr];
+    });
+  };
 
   return (
     <div>
@@ -40,7 +49,8 @@ export default function GameScreen(props) {
                 id={card.id}
                 rotate={card.rotate}
                 image={card.card}
-                bond={card.bind}
+                bind={card.bind}
+                actionRotate={rotate}
               />
             );
           })}
