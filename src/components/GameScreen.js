@@ -14,6 +14,7 @@ const CardsContainer = styled.div`
 
 export default function GameScreen(props) {
   const [cardsArr, setCardsArr] = useState([]);
+  const [moves, setMoves] = useState(0);
   const audio = new Audio(sound);
 
   useEffect(() => {
@@ -21,17 +22,19 @@ export default function GameScreen(props) {
   }, [props.numbOfCards]);
 
   const rotate = (id, set) => {
-    setCardsArr((prevArr) => {
-      prevArr[id].rotate = true;
-      prevArr[id].valid = 1;
-      return [...prevArr];
-    });
-    setTimeout(() => validateCards(), 500);
+    if (set === 0) {
+      setCardsArr((prevArr) => {
+        prevArr[id].rotate = true;
+        prevArr[id].valid = 1;
+        return [...prevArr];
+      });
+      setTimeout(() => validateCards(), 700);
+    }
   };
-
+  console.log(cardsArr);
   const validateCards = () => {
     const vCards = cardsArr.filter((card) => card.valid === 1);
-
+    setMoves(moves + 1);
     if (vCards.length === 2) {
       if (vCards[0].bind !== vCards[1].bind) {
         setCardsArr((prevArr) => {
@@ -58,7 +61,7 @@ export default function GameScreen(props) {
       <h1>Have fun!</h1>
       <div>
         <div>
-          <p>moves</p>
+          <p>Moves: {moves}</p>
         </div>
         <div>
           <p>time</p>
@@ -75,6 +78,7 @@ export default function GameScreen(props) {
                 rotate={card.rotate}
                 image={card.card}
                 bind={card.bind}
+                set={card.set}
                 actionRotate={rotate}
               />
             );
