@@ -4,6 +4,7 @@ import Card from "./Card";
 import randomCardsArr from "../logic/crreateRandomCardsArray";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import convertTimer from "../logic/convertTimer";
 
 const CardsContainer = styled.div`
   width: 1000px;
@@ -14,6 +15,7 @@ const CardsContainer = styled.div`
 
 export default function GameScreen(props) {
   const [cardsArr, setCardsArr] = useState([]);
+  const [moves, setMoves] = useState(0);
   const audio = new Audio(sound);
 
   useEffect(() => {
@@ -21,17 +23,19 @@ export default function GameScreen(props) {
   }, [props.numbOfCards]);
 
   const rotate = (id, set) => {
-    setCardsArr((prevArr) => {
-      prevArr[id].rotate = true;
-      prevArr[id].valid = 1;
-      return [...prevArr];
-    });
-    setTimeout(() => validateCards(), 500);
+    if (set === 0) {
+      setCardsArr((prevArr) => {
+        prevArr[id].rotate = true;
+        prevArr[id].valid = 1;
+        return [...prevArr];
+      });
+      setTimeout(() => validateCards(), 700);
+    }
   };
-
+  console.log(cardsArr);
   const validateCards = () => {
     const vCards = cardsArr.filter((card) => card.valid === 1);
-
+    setMoves(moves + 1);
     if (vCards.length === 2) {
       if (vCards[0].bind !== vCards[1].bind) {
         setCardsArr((prevArr) => {
@@ -58,10 +62,10 @@ export default function GameScreen(props) {
       <h1>Have fun!</h1>
       <div>
         <div>
-          <p>moves</p>
+          <p>Moves: {Math.trunc(moves / 2)}</p>
         </div>
         <div>
-          <p>time</p>
+          <p>time: {convertTimer(props.time)}</p>
         </div>
       </div>
       <CardsContainer>
@@ -75,6 +79,7 @@ export default function GameScreen(props) {
                 rotate={card.rotate}
                 image={card.card}
                 bind={card.bind}
+                set={card.set}
                 actionRotate={rotate}
               />
             );
@@ -84,7 +89,7 @@ export default function GameScreen(props) {
         text="Exit"
         action={() => {
           audio.play();
-          props.setGame(0);
+          props.setRestart(0);
         }}
       />
     </div>
