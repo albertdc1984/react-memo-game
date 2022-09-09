@@ -1,0 +1,12 @@
+.rotate {
+  perspective: 1000px;
+  transition: transform 0.2s;
+  transform-style: preserve-3d;
+  transform: rotateY(180deg);
+}
+.active {
+  z-index: 1;
+}
+.inactive {
+  z-index: -1;
+}
