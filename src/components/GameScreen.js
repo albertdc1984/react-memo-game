@@ -20,12 +20,37 @@ export default function GameScreen(props) {
     setCardsArr(randomCardsArr(props.numbOfCards));
   }, [props.numbOfCards]);
 
-  const rotate = (id, fixed) => {
+  const rotate = (id, set) => {
     setCardsArr((prevArr) => {
       prevArr[id].rotate = true;
       prevArr[id].valid = 1;
       return [...prevArr];
     });
+    setTimeout(() => validateCards(), 500);
+  };
+
+  const validateCards = () => {
+    const vCards = cardsArr.filter((card) => card.valid === 1);
+
+    if (vCards.length === 2) {
+      if (vCards[0].bind !== vCards[1].bind) {
+        setCardsArr((prevArr) => {
+          prevArr[vCards[0].id].rotate = false;
+          prevArr[vCards[0].id].valid = 0;
+          prevArr[vCards[1].id].rotate = false;
+          prevArr[vCards[1].id].valid = 0;
+          return [...prevArr];
+        });
+      } else {
+        setCardsArr((prevArr) => {
+          prevArr[vCards[0].id].set = 1;
+          prevArr[vCards[0].id].valid = 0;
+          prevArr[vCards[1].id].set = 1;
+          prevArr[vCards[1].id].valid = 0;
+          return [...prevArr];
+        });
+      }
+    }
   };
 
   return (

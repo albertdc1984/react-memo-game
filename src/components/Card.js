@@ -23,7 +23,6 @@ const CardBorder = styled.div`
   background: url(${marvel3});
   backdrop-filter: blur(20px);
   background-position: center;
-
   transition: transform 0.8s;
   transform-style: preserve-3d;
 `;
@@ -46,6 +45,7 @@ const CardBorderBack = styled.div`
 const CardFront = styled.img`
   height: 80%;
   filter: drop-shadow(5px 5px 5px #222);
+  transform: rotateY(180deg);
 `;
 const CardBack = styled.img`
   width: 90%;
@@ -54,17 +54,19 @@ const CardBack = styled.img`
 export default function Card(props) {
   return (
     <CardContainer
-      className={`card ${props.rotate ? "rotate" : ""}`}
+      className={`card ${props.rotate ? "rotate" : ""} flip-card`}
       data-id={props.id}
       data-bind={props.bind}
-      onClick={() => props.actionRotate(props.id, props.fixed)}
+      onClick={() => props.actionRotate(props.id, props.set)}
     >
-      <CardBorder className={`${props.rotate ? "active" : "inactive"}`}>
-        <CardFront src={props.image} alt="Card front" />
-      </CardBorder>
-      <CardBorderBack className={`${props.rotate ? "inactive" : "active"}`}>
-        <CardBack src={marvel} alt="Card back" />
-      </CardBorderBack>
+      <div class="flip-card-inner ">
+        <CardBorder className={`${props.rotate ? "active" : "inactive"} `}>
+          <CardFront src={props.image} alt="Card front" />
+        </CardBorder>
+        <CardBorderBack className={`${props.rotate ? "inactive" : "active"}`}>
+          <CardBack src={marvel} alt="Card back" />
+        </CardBorderBack>
+      </div>
     </CardContainer>
   );
 }
