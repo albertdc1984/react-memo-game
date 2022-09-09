@@ -37,7 +37,7 @@ export default function MainScreen(props) {
           text="Start"
           action={() => {
             audio.play();
-            props.setGame();
+            props.setGame(1);
           }}
         />
       </ButtonBox>

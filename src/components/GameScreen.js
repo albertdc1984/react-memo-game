@@ -4,6 +4,7 @@ import Card from "./Card";
 import randomCardsArr from "../logic/crreateRandomCardsArray";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import convertTimer from "../logic/convertTimer";
 
 const CardsContainer = styled.div`
   width: 1000px;
@@ -61,10 +62,10 @@ export default function GameScreen(props) {
       <h1>Have fun!</h1>
       <div>
         <div>
-          <p>Moves: {moves}</p>
+          <p>Moves: {Math.trunc(moves / 2)}</p>
         </div>
         <div>
-          <p>time</p>
+          <p>time: {convertTimer(props.time)}</p>
         </div>
       </div>
       <CardsContainer>
@@ -88,7 +89,7 @@ export default function GameScreen(props) {
         text="Exit"
         action={() => {
           audio.play();
-          props.setGame(0);
+          props.setRestart(0);
         }}
       />
     </div>
