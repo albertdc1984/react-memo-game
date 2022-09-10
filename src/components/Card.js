@@ -52,13 +52,24 @@ const CardBack = styled.img`
 `;
 
 export default function Card(props) {
+  const otherThing = () => {
+    const pairedCards = props.cardArr.filter(
+      (card) => card.paired === 0
+    ).length;
+    if (pairedCards === 0) {
+      props.setFinish(2);
+      console.log("all set");
+    }
+  };
   return (
     <CardContainer
       className={`card ${props.rotate ? "rotate" : ""} flip-card`}
       data-id={props.id}
       data-bind={props.bind}
-      data-set={props.set}
-      onClick={() => props.actionRotate(props.id, props.set)}
+      onClick={() => {
+        props.actionRotate(props.id, props.paired);
+        otherThing();
+      }}
     >
       <div className="flip-card-inner ">
         <CardBorder className={`${props.rotate ? "active" : "inactive"} `}>
