@@ -5,11 +5,25 @@ import randomCardsArr from "../logic/crreateRandomCardsArray";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import convertTimer from "../logic/convertTimer";
+import Title from "./Title";
+
+const GameScreenDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+const GameContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+`;
 
 const CardsContainer = styled.div`
   width: 1000px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   cursor: pointer;
 `;
 
@@ -63,42 +77,45 @@ export default function GameScreen(props) {
   };
 
   return (
-    <div>
-      <h1>Have fun!</h1>
-      <div>
+    <GameScreenDiv>
+      <Title />
+
+      <GameContainer>
         <div>
-          <p>Moves: {Math.trunc(moves / 2)}</p>
+          <div>
+            <p>Moves: {Math.trunc(moves / 2)}</p>
+          </div>
+          <div>
+            <p>time: {convertTimer(props.time)}</p>
+          </div>
         </div>
-        <div>
-          <p>time: {convertTimer(props.time)}</p>
-        </div>
-      </div>
-      <CardsContainer>
-        {cardsArr
-          .sort((a, b) => a.id - b.id)
-          .map((card) => {
-            return (
-              <Card
-                key={card.id}
-                id={card.id}
-                rotate={card.rotate}
-                image={card.card}
-                bind={card.bind}
-                paired={card.paired}
-                actionRotate={rotate}
-                cardArr={cardsArr}
-                setFinish={props.setFinish}
-              />
-            );
-          })}
-      </CardsContainer>
-      <Button
-        text="Exit"
-        action={() => {
-          audio.play();
-          props.setRestart(0);
-        }}
-      />
-    </div>
+        <CardsContainer>
+          {cardsArr
+            .sort((a, b) => a.id - b.id)
+            .map((card) => {
+              return (
+                <Card
+                  key={card.id}
+                  id={card.id}
+                  rotate={card.rotate}
+                  image={card.card}
+                  bind={card.bind}
+                  paired={card.paired}
+                  actionRotate={rotate}
+                  cardArr={cardsArr}
+                  setFinish={props.setFinish}
+                />
+              );
+            })}
+        </CardsContainer>
+        <Button
+          text="Exit"
+          action={() => {
+            audio.play();
+            props.setRestart(0);
+          }}
+        />
+      </GameContainer>
+    </GameScreenDiv>
   );
 }

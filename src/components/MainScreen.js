@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Button from "./Button";
 import sound from "../ding-3.wav";
 import marvello from "../marvel3.svg";
+import Title from "./Title";
 
 const MainScreena = styled.div`
   display: flex;
@@ -13,6 +14,8 @@ const MainScreena = styled.div`
   height: 100vh;
   background-image: url(${marvello});
   background-size: 250vw;
+  top: 0;
+  position: absolute;
   animation: background-rotate 200s infinite;
   @keyframes background-rotate {
     0% {
@@ -33,25 +36,6 @@ const MainScreena = styled.div`
   }
 `;
 
-const TitleBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  h1 {
-    font-size: 80px;
-    position: absolute;
-    top: 6vh;
-    text-shadow: #fff 1px 0 1px;
-    border-style: solid;
-    border-color: black;
-    border-radius: 10px;
-    background-color: rgb(255 0 0 / 70%);
-    color: white;
-    padding: 0 10px;
-  }
-`;
 const ButtonBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -73,7 +57,6 @@ const ButtonBox = styled.div`
   }
   button {
     background-color: red;
-    box-shadow: #fff 1px 0 1px;
     border-style: none;
     :active {
       background-color: #de0000;
@@ -85,28 +68,28 @@ export default function MainScreen(props) {
   var audio = new Audio(sound);
   const difficultyLevels = ["EASY", "MEDIUM", "HARD"];
   return (
-    <MainScreena>
-      <TitleBox>
-        <h1>MARVEL MEMORY GAME</h1>
-      </TitleBox>
-      <ButtonBox>
-        <h2 className="title-part">CHOOSE DIFFICULTY</h2>
-        <Button
-          text={difficultyLevels[props.difficulty]}
-          action={() => {
-            audio.play();
-            props.changeDifficulty();
-          }}
-        />
-        <br />
-        <Button
-          text="START"
-          action={() => {
-            audio.play();
-            props.setGame(1);
-          }}
-        />
-      </ButtonBox>
-    </MainScreena>
+    <>
+      <Title />
+      <MainScreena>
+        <ButtonBox>
+          <h2 className="title-part">CHOOSE DIFFICULTY</h2>
+          <Button
+            text={difficultyLevels[props.difficulty]}
+            action={() => {
+              audio.play();
+              props.changeDifficulty();
+            }}
+          />
+          <br />
+          <Button
+            text="START"
+            action={() => {
+              audio.play();
+              props.setGame(1);
+            }}
+          />
+        </ButtonBox>
+      </MainScreena>
+    </>
   );
 }
