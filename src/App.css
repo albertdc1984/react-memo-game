@@ -1,5 +1,5 @@
 * {
-  font-family: "Lobster", cursive;
+  font-family: "Oswald", sans-serif;
 }
 .App {
   display: flex;
@@ -20,4 +20,7 @@
   to {
     transform: rotate(360deg);
   }
+}
+.title-part {
+  font-family: "Caveat Brush", cursive;
 }

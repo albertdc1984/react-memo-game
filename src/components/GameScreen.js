@@ -32,13 +32,13 @@ export default function GameScreen(props) {
       setTimeout(() => validateCards(), 800);
     }
   };
-  const validateCards = async () => {
+  const validateCards = () => {
     const vCards = cardsArr.filter((card) => card.valid === 1);
     const pairedCards = cardsArr.filter((card) => card.paired === 0).length;
     setMoves(moves + 1);
     if (vCards.length === 2) {
       if (vCards[0].bind !== vCards[1].bind) {
-        await setCardsArr((prevArr) => {
+        setCardsArr((prevArr) => {
           prevArr[vCards[0].id].rotate = false;
           prevArr[vCards[0].id].valid = 0;
           prevArr[vCards[1].id].rotate = false;
@@ -46,7 +46,7 @@ export default function GameScreen(props) {
           return [...prevArr];
         });
       } else {
-        await setCardsArr((prevArr) => {
+        setCardsArr((prevArr) => {
           prevArr[vCards[0].id].paired = 1;
           prevArr[vCards[0].id].valid = 0;
           prevArr[vCards[1].id].paired = 1;
@@ -56,10 +56,8 @@ export default function GameScreen(props) {
       }
     }
 
-    console.log(pairedCards);
     if (pairedCards === 0) {
-      debugger;
-      await props.setFinish(2);
+      props.setFinish(2);
       console.log("all set");
     }
   };
@@ -88,7 +86,8 @@ export default function GameScreen(props) {
                 bind={card.bind}
                 paired={card.paired}
                 actionRotate={rotate}
-                onclick={() => validateCards()}
+                cardArr={cardsArr}
+                setFinish={props.setFinish}
               />
             );
           })}
