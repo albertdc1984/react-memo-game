@@ -19,7 +19,7 @@ const randomCardsArr = (numbCards) => {
         bind: j,
         rotate: false,
         valid: 0,
-        set: 0,
+        paired: 0,
       });
 
       i++;

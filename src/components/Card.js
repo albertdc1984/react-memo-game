@@ -57,8 +57,7 @@ export default function Card(props) {
       className={`card ${props.rotate ? "rotate" : ""} flip-card`}
       data-id={props.id}
       data-bind={props.bind}
-      data-set={props.set}
-      onClick={() => props.actionRotate(props.id, props.set)}
+      onClick={() => props.actionRotate(props.id, props.paired)}
     >
       <div className="flip-card-inner ">
         <CardBorder className={`${props.rotate ? "active" : "inactive"} `}>

@@ -22,23 +22,23 @@ export default function GameScreen(props) {
     setCardsArr(randomCardsArr(props.numbOfCards));
   }, [props.numbOfCards]);
 
-  const rotate = (id, set) => {
-    if (set === 0) {
+  const rotate = (id, paired) => {
+    if (paired === 0) {
       setCardsArr((prevArr) => {
         prevArr[id].rotate = true;
         prevArr[id].valid = 1;
         return [...prevArr];
       });
-      setTimeout(() => validateCards(), 700);
+      setTimeout(() => validateCards(), 800);
     }
   };
-  console.log(cardsArr);
-  const validateCards = () => {
+  const validateCards = async () => {
     const vCards = cardsArr.filter((card) => card.valid === 1);
+    const pairedCards = cardsArr.filter((card) => card.paired === 0).length;
     setMoves(moves + 1);
     if (vCards.length === 2) {
       if (vCards[0].bind !== vCards[1].bind) {
-        setCardsArr((prevArr) => {
+        await setCardsArr((prevArr) => {
           prevArr[vCards[0].id].rotate = false;
           prevArr[vCards[0].id].valid = 0;
           prevArr[vCards[1].id].rotate = false;
@@ -46,14 +46,21 @@ export default function GameScreen(props) {
           return [...prevArr];
         });
       } else {
-        setCardsArr((prevArr) => {
-          prevArr[vCards[0].id].set = 1;
+        await setCardsArr((prevArr) => {
+          prevArr[vCards[0].id].paired = 1;
           prevArr[vCards[0].id].valid = 0;
-          prevArr[vCards[1].id].set = 1;
+          prevArr[vCards[1].id].paired = 1;
           prevArr[vCards[1].id].valid = 0;
           return [...prevArr];
         });
       }
+    }
+
+    console.log(pairedCards);
+    if (pairedCards === 0) {
+      debugger;
+      await props.setFinish(2);
+      console.log("all set");
     }
   };
 
@@ -79,8 +86,9 @@ export default function GameScreen(props) {
                 rotate={card.rotate}
                 image={card.card}
                 bind={card.bind}
-                set={card.set}
+                paired={card.paired}
                 actionRotate={rotate}
+                onclick={() => validateCards()}
               />
             );
           })}
