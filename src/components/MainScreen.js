@@ -47,7 +47,9 @@ const TitleBox = styled.div`
     border-style: solid;
     border-color: black;
     border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb(255 0 0 / 70%);
+    color: white;
+    padding: 0 10px;
   }
 `;
 const ButtonBox = styled.div`
@@ -57,39 +59,38 @@ const ButtonBox = styled.div`
   position: relative;
   align-items: center;
   width: 250px;
-  height: 300px;
+  height: 225px;
   border-style: solid;
   border-color: black;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.5);
 
   h2 {
-    font-size: 37px;
+    font-size: 30px;
     text-shadow: #fff 1px 0 1px;
-    margin: 0;
-    top: -14px;
-    left: -2px;
-    width: 300px px;
+    margin: 15px 0;
+    color: white;
   }
   button {
     background-color: red;
     box-shadow: #fff 1px 0 1px;
     border-style: none;
+    :active {
+      background-color: #de0000;
+    }
   }
 `;
 
 export default function MainScreen(props) {
   var audio = new Audio(sound);
-  const difficultyLevels = ["Easy", "Medium", "Hard"];
+  const difficultyLevels = ["EASY", "MEDIUM", "HARD"];
   return (
     <MainScreena>
       <TitleBox>
-        <h1>
-          MARVEL <span className="title-part">Memory Game</span>
-        </h1>
+        <h1>MARVEL MEMORY GAME</h1>
       </TitleBox>
       <ButtonBox>
-        <h2 className="title-part">Choose difficulty</h2>
+        <h2 className="title-part">CHOOSE DIFFICULTY</h2>
         <Button
           text={difficultyLevels[props.difficulty]}
           action={() => {
@@ -99,7 +100,7 @@ export default function MainScreen(props) {
         />
         <br />
         <Button
-          text="Start"
+          text="START"
           action={() => {
             audio.play();
             props.setGame(1);
